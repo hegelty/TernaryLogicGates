@@ -91,14 +91,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a225084838d53e4a8a3db929ecfa736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 0
   _isSwitch: 1
   input_count: 0
   output_count: 0
-  inputGates: []
-  outputGates: []
+  inputPoints: []
+  outputPoints: []
+  inputStateTexts: []
+  outputStateTexts: []
   inputs: 
   outputs: 
+  state: 0
 --- !u!1 &7091300447387802942
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +149,7 @@ GameObject:
   - component: {fileID: 5124555245732870742}
   - component: {fileID: 6969792521159185823}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: OutputText_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

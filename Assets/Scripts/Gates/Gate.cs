@@ -162,6 +162,7 @@ public abstract class Gate : MonoBehaviour
     {
         foreach ((Gate, int) gate in inputGates)
         {
+            Debug.Log(gate.Item1.name);
             if (!gate.Item1.IsSwitch())
             {
                 return false;

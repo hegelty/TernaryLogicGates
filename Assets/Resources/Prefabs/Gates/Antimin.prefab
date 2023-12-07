@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1207900367831203587}
   - component: {fileID: 2113913819276643354}
   - component: {fileID: 2384918977609187435}
-  - component: {fileID: 273941078457789407}
+  - component: {fileID: 7173354266914126129}
   m_Layer: 5
-  m_Name: Gate_Antimax
+  m_Name: Antimin
   m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4c27a5b35ac08fa4ebca13c43c299df6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bfa31e6c8b7007f42ba5177f941260cc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &273941078457789407
+--- !u!114 &7173354266914126129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,15 +92,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 576810749559836755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6539e22d41fb2dc469206cc589d0aad0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d7556ca8b423214ea7faf029a71c0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 0
   _isSwitch: 0
   input_count: 0
   output_count: 0
-  inputGates: []
-  outputGates: []
+  inputPoints: []
+  outputPoints: []
+  inputStateTexts: []
+  outputStateTexts: []
   inputs: 
   outputs: 
 --- !u!1 &699369813045365207
@@ -138,8 +139,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: -95}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -185, y: -90}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7884567529412431343
 CanvasRenderer:
@@ -232,7 +233,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 164.85822, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.6649475, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -322,7 +323,7 @@ GameObject:
   - component: {fileID: 4728980532928837112}
   - component: {fileID: 5560714561890911759}
   m_Layer: 5
-  m_Name: OutputText
+  m_Name: OutputText_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,8 +346,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 270, y: 30}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 187, y: 34.5}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4728980532928837112
 CanvasRenderer:
@@ -439,7 +440,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 164.85822, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.66503906, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -516,8 +517,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: 90}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -185, y: 90}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &286229287194027652
 CanvasRenderer:
@@ -610,7 +611,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 164.85822, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.6649475, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -8,6 +8,7 @@ TagManager:
   - Input
   - Gate
   - Switch
+  - Builder
   layers:
   - Default
   - TransparentFX

@@ -30,10 +30,14 @@ public class Switch : Gate, IPointerClickHandler
         else if (eventData.button == PointerEventData.InputButton.Middle)
         {
             Debug.Log("Mouse Click Button : Middle");
+            state = 0;
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             Debug.Log("Mouse Click Button : Right");
+            // set state -1 to 1,  0 to -1, 1 to 0
+            state = (state + 3) % 3 - 1;
         }
+        ShowStateText();
     }
 }
