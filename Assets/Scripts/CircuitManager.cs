@@ -33,4 +33,6 @@ public class CircuitManager : MonoBehaviour
             }
         }
     }
+
+    public void StartConnection(Gate gate, int)
 }

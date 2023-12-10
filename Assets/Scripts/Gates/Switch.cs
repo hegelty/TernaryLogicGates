@@ -38,6 +38,7 @@ public class Switch : Gate, IPointerClickHandler
             // set state -1 to 1,  0 to -1, 1 to 0
             state = (state + 3) % 3 - 1;
         }
+        outputs[0] = state;
         ShowStateText();
     }
 }
