@@ -6,12 +6,11 @@ using UnityEngine.EventSystems;
 
 public class GateBuilder : MonoBehaviour, IPointerClickHandler
 {
-    public string GateName;
     public void OnPointerClick(PointerEventData eventData)
     {
         if(eventData.button == PointerEventData.InputButton.Left)
         {
-            GameObject.Find("Canvas").GetComponent<BuilderManager>().SetCurrentGate(GateName);
+            GameObject.Find("Canvas").GetComponent<BuilderManager>().SetCurrentGate(this.name.Replace("Builder_", ""));
         }
     }
 }

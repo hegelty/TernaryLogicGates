@@ -13,6 +13,7 @@ public class Switch : Gate, IPointerClickHandler
 
     public override void Init()
     {
+        gateName = name.Replace("(Clone)", "");
         input_count = 0;
         output_count = 1;
         _isSwitch = true;
@@ -20,25 +21,30 @@ public class Switch : Gate, IPointerClickHandler
         base.Init();
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public new void OnPointerClick(PointerEventData eventData)
     {
+        if (CircuitManager._isRemoving)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                CircuitManager.RemoveGate(this);
+            }
+        }
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Debug.Log("Mouse Click Button : Left");
             state = (state + 2) % 3 - 1;
         }
         else if (eventData.button == PointerEventData.InputButton.Middle)
         {
-            Debug.Log("Mouse Click Button : Middle");
             state = 0;
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log("Mouse Click Button : Right");
-            // set state -1 to 1,  0 to -1, 1 to 0
             state = (state + 3) % 3 - 1;
         }
         outputs[0] = state;
         ShowStateText();
+        ActivateNextGate();
     }
 }

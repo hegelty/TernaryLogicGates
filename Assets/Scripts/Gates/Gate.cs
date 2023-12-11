@@ -2,23 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public abstract class Gate : MonoBehaviour
+public abstract class Gate : MonoBehaviour, IPointerClickHandler
 {
+    public string gateName;
+    public CircuitManager CircuitManager;
+
     public bool _isSwitch = false;
 
-    public int input_count;
-    public int output_count;
+    public int input_count; // input 총 개수
+    public int output_count; // output 총 개수
 
-    public List<(Gate, int)> inputGates = new List<(Gate, int)>(); // (gate, output_num)
-    public List<List<Gate>> outputGates = new List<List<Gate>>();
+    private List<(Gate, int)> inputGates = new List<(Gate, int)>(); // (gate, output_num)
+    private List<List<Gate>> outputGates = new List<List<Gate>>();
 
-    public List<Object> inputPoints = new List<Object>();
-    public List<Object> outputPoints = new List<Object>();
+    public List<GameObject> inputPoints = new List<GameObject>();
+    public List<GameObject> outputPoints = new List<GameObject>();
 
-    public List<TextMeshProUGUI> inputStateTexts = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> outputStateTexts = new List<TextMeshProUGUI>();
-
+    private List<TextMeshProUGUI> inputStateTexts = new List<TextMeshProUGUI>();
+    private List<TextMeshProUGUI> outputStateTexts = new List<TextMeshProUGUI>();
 
     public List<int> inputs = new List<int>();
     public List<int> outputs = new List<int>();
@@ -28,50 +33,75 @@ public abstract class Gate : MonoBehaviour
         Init();
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(CircuitManager._isRemoving)
+        {
+            if(eventData.button == PointerEventData.InputButton.Left)
+            {
+                CircuitManager.RemoveGate(this);
+            }
+        }
+    }
+
     public virtual void Init()
     {
-        Debug.Log("Init " + gameObject.name); 
-        inputGates.Clear();
-        outputGates.Clear();
-        inputPoints.Clear();
-        outputPoints.Clear();
-        inputStateTexts.Clear();
-        outputStateTexts.Clear();
-        inputs.Clear();
-        outputs.Clear();
+        CircuitManager = GameObject.Find("Canvas").GetComponent<CircuitManager>();
+
+        inputGates.Clear(); outputGates.Clear(); 
+        inputPoints.Clear(); outputPoints.Clear();
+        inputStateTexts.Clear(); outputStateTexts.Clear();
+        inputs.Clear(); outputs.Clear();
+
         for(int i = 0; i < input_count; i++)
         {
+            int tmp = i;
             inputGates.Add((null, 0));
             inputs.Add(0);
-            inputPoints.Add(transform.Find("Input_" + i));
+            inputPoints.Add(transform.Find("Input_" + i).gameObject);
+            inputPoints[i].GetComponent<Button>().onClick.AddListener(() => CircuitManager.Connecting(this, tmp, true));
             inputStateTexts.Add(transform.Find("InputText_" + i).GetComponent<TextMeshProUGUI>());
             inputStateTexts[i].text = "0";
         }
+        print(inputGates.Count);
         for (int i = 0; i < output_count; i++)
         {
+            int tmp = i;
             outputGates.Add(new List<Gate>());
             outputs.Add(0);
-            outputPoints.Add(transform.Find("Output_" + i));
+            outputPoints.Add(transform.Find("Output_" + i).gameObject);
+            outputPoints[i].GetComponent<Button>().onClick.AddListener(() => CircuitManager.Connecting(this, tmp, false));
             outputStateTexts.Add(transform.Find("OutputText_" + i).GetComponent<TextMeshProUGUI>());
             outputStateTexts[i].text = "0";
         }
     }
 
+    // 자기 게이트의 인풋에 아웃풋 연결
     public void SetInputGate(Gate gate, int output_num, int input_num)
     {
+        print("SetInput" + gate.name + " " + output_num + " " + input_num + "(" + inputGates.Count);
         inputGates[input_num] = (gate, output_num);
+        Activated();
     }
 
+    // 자기 게이트의 아웃풋에 인풋 연결
     public void AddOutputGate(Gate gate, int output_num)
     {
+        print("AddOutput" + gate.name + " " + output_num + "(" + outputGates.Count);
         outputGates[output_num].Add(gate);
     }
 
-    public void RemonveOutputGate(Gate gate, int num)
+    public void RemoveOutputGate(Gate gate, int num)
     {
         outputGates[num].Remove(gate);
     }
 
+    public void RemoveInputGate(Gate gate, int output_num, int input_num)
+    {
+        inputGates[input_num] = (null, 0);
+    }
+
+    // 게이트가 활성화되었을 때 호출되는 함수
     public void Activated()
     {
         if (CheckCondition() && !_isSwitch)
@@ -79,6 +109,7 @@ public abstract class Gate : MonoBehaviour
             outputs.Clear();
             GetInputs();
             CalculateOutput();
+            ShowStateText();
             ActivateNextGate();
         }
     }
@@ -125,10 +156,7 @@ public abstract class Gate : MonoBehaviour
         {
             StartCoroutine(ActivateNextGateCoroutine());
         }
-        else
-        {
-            ActivateNextGateImmediate();
-        }
+        else ActivateNextGateImmediate();
     }
 
     private IEnumerator ActivateNextGateCoroutine()

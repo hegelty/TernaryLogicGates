@@ -10,31 +10,34 @@ public class BuilderManager : MonoBehaviour
 
     public void SetCurrentGate(string gate)
     {
-        Debug.Log("SetCurrentGate");
+        print(gate);
         CurrentCursor = gate;
-        Cursor.SetCursor(Resources.Load<Texture2D>("Images/" + CurrentCursor), Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(Resources.Load<Texture2D>(
+            CurrentCursor == "Switch" ? "Images/Switch" : "Images/Gates/" + CurrentCursor), Vector2.zero, CursorMode.Auto);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && !IsMouseOnUi)
         {
-            Debug.Log("Mouse Click Button : Left\nCurrent Cursor : " + CurrentCursor);
             if (CurrentCursor != "")
             {
-                Debug.Log("Place " + CurrentCursor);
                 GameObject canvas = GameObject.Find("Canvas");
-                GameObject gate = Instantiate(Resources.Load<GameObject>("Prefabs/" + CurrentCursor), canvas.transform);
+                GameObject gate = Instantiate(Resources.Load<GameObject>(
+                    CurrentCursor=="Switch"?"Prefabs/Switch":"Prefabs/Gates/" + CurrentCursor), canvas.transform);
                 gate.SetActive(true);
                 gate.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 gate.transform.position = new Vector3(gate.transform.position.x, gate.transform.position.y, 0);
                 gate.transform.localScale = new Vector3(1, 1, 1);
-                gate.GetComponent<Gate>().Init();
                 CurrentCursor = "";
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                canvas.GetComponent<CircuitManager>()._gates.Add(gate.GetComponent<Gate>());
             }
         }
+        else if(Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            CurrentCursor = "";
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
     }
-
-    public static BuilderManager Instance { get; private set; }
 }
