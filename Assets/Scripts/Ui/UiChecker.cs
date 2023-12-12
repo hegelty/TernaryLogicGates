@@ -7,11 +7,11 @@ public class UIChecker : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     public void OnPointerEnter(PointerEventData eventData)
     {
-        GameObject.Find("Canvas").GetComponent<BuilderManager>().IsMouseOnUi = true;
+        GameObject.Find("CircuitCanvas").GetComponent<BuilderManager>().IsMouseOnUi = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        GameObject.Find("Canvas").GetComponent<BuilderManager>().IsMouseOnUi = false;
+        GameObject.Find("CircuitCanvas").GetComponent<BuilderManager>().IsMouseOnUi = false;
     }
 }

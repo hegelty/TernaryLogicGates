@@ -10,7 +10,7 @@ public class GateBuilder : MonoBehaviour, IPointerClickHandler
     {
         if(eventData.button == PointerEventData.InputButton.Left)
         {
-            GameObject.Find("Canvas").GetComponent<BuilderManager>().SetCurrentGate(this.name.Replace("Builder_", ""));
+            GameObject.Find("CircuitCanvas").GetComponent<BuilderManager>().SetCurrentGate(this.name.Replace("Builder_", ""));
         }
     }
 }

@@ -9,7 +9,7 @@ public class Remover : MonoBehaviour, IPointerClickHandler
     {
         if(eventData.button == PointerEventData.InputButton.Left)
         {
-            GameObject.Find("Canvas").GetComponent<CircuitManager>()._isRemoving = true;
+            GameObject.Find("CircuitCanvas").GetComponent<CircuitManager>()._isRemoving = true;
             Cursor.SetCursor(Resources.Load<Texture2D>("Images/trash"), Vector2.zero, CursorMode.Auto);
         }
     }

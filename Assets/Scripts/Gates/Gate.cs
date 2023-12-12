@@ -46,7 +46,7 @@ public abstract class Gate : MonoBehaviour, IPointerClickHandler
 
     public virtual void Init()
     {
-        CircuitManager = GameObject.Find("Canvas").GetComponent<CircuitManager>();
+        CircuitManager = GameObject.Find("CircuitCanvas").GetComponent<CircuitManager>();
 
         inputGates.Clear(); outputGates.Clear(); 
         inputPoints.Clear(); outputPoints.Clear();

@@ -21,8 +21,8 @@ public class ConnectionInfo
         ConnectingLine.material = new Material(Shader.Find("Sprites/Default"));
         ConnectingLine.startColor = Color.black;
         ConnectingLine.endColor = Color.black;
-        ConnectingLine.startWidth = 0.1f;
-        ConnectingLine.endWidth = 0.1f;
+        ConnectingLine.startWidth = 0.05f;
+        ConnectingLine.endWidth = 0.05f;
         ConnectingLine.positionCount = 2;
     }
 }
@@ -71,6 +71,11 @@ public class CircuitManager : MonoBehaviour
                 Vector3 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 _connectingLine.SetPosition(1, new Vector3(mousePoint.x, mousePoint.y, 0));
             }
+        }
+        if (_isRemoving && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Mouse1)))
+        { 
+            _isRemoving = false;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }
 

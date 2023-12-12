@@ -22,13 +22,13 @@ public class BuilderManager : MonoBehaviour
         {
             if (CurrentCursor != "")
             {
-                GameObject canvas = GameObject.Find("Canvas");
+                GameObject canvas = GameObject.Find("CircuitCanvas");
                 GameObject gate = Instantiate(Resources.Load<GameObject>(
                     CurrentCursor=="Switch"?"Prefabs/Switch":"Prefabs/Gates/" + CurrentCursor), canvas.transform);
                 gate.SetActive(true);
                 gate.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 gate.transform.position = new Vector3(gate.transform.position.x, gate.transform.position.y, 0);
-                gate.transform.localScale = new Vector3(1, 1, 1);
+                gate.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
                 CurrentCursor = "";
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                 canvas.GetComponent<CircuitManager>()._gates.Add(gate.GetComponent<Gate>());
