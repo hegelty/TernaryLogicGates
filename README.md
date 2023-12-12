@@ -1,1 +1,1 @@
-# Terneray Logic Circuit Simulater
+# Ternary Logic Circuit Simulater
